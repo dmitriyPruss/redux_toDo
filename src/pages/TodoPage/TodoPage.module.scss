@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 16px;
+}
+
+.header {
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0px 2px 0px #000000, 0px 6px 8px rgba(10, 8, 8, 0.548),
+    0px 9px 2px rgba(0, 0, 0, 0.1), 0px 12px 15px rgba(0, 0, 0, 0.1);
+  height: 4rem;
+  width: 35%;
+  margin: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(241, 241, 241);
+}
+
+.itemsContainer {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.7rem;
+  width: 64%;
+  margin: 0 auto;
+  color: white;
+}
+
+.inputData {
+  display: flex;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.inputElement {
+  border-radius: 5px;
+  margin-right: 5px;
+  height: 3rem;
+}
+
+.listItem {
+  margin: 10px 0 2px;
+  padding: 3px;
+  border: 3px outset rgb(34, 30, 30);
+  border-radius: 4px;
+  width: 95%;
+  height: 70px;
+  position: relative;
+  background: linear-gradient(
+    rgb(163, 158, 156),
+    rgb(150, 148, 148),
+    rgb(147, 145, 145),
+    rgb(150, 148, 148),
+    rgb(163, 158, 138)
+  );
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > span {
+    margin-left: 30px;
+
+    background-color: #161414;
+
+    background-clip: text;
+    color: transparent;
+    text-shadow: rgba(141, 136, 136, 0.904) 0px 3px 3px;
+  }
+
+  & > div {
+    margin: 0 5px 0 auto;
+  }
+}
+.errorValue {
+  color: rgb(245, 51, 51);
+  font-weight: bold;
+  font-style: italic;
+  font-size: 0.85rem;
+  padding: 2px;
+  letter-spacing: 0.05rem;
+  position: absolute;
+  top: 45px;
+  left: 3px;
+}
+.todoButton {
+  height: 50%;
+}
+
+.valid {
+  border: 1px solid blue;
+  background: lightblue;
+}
+
+.invalid {
+  border: 1px solid red;
+  background: rgb(255, 196, 196);
+}
