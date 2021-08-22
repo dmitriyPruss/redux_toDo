@@ -1,10 +1,10 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Input from '../../components/Input';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { Button } from 'react-bootstrap';
 import { INPUT_SCHEMA } from './../../utils/validatingSchemas';
-
+import { createContext } from 'react';
 import styles from './TodoPage.module.scss';
 
 const tasksDB = [
@@ -16,15 +16,29 @@ const tasksDB = [
 ];
 
 function TodoPage () {
+  const [theme, setTheme] = useState(true);
   const [tasks, setTasks] = useState(tasksDB);
-
   const [counter, setCounter] = useState(tasksDB.length);
 
   const getCounter = () => {
-    setCounter(counter + tasksDB.length);
+    setCounter(tasks.length);
+  };
+
+  const changeTheme = () => {
+    setTheme(!theme);
   };
 
   const addTask = (values, formikBag) => {
+    let stopFunc = null;
+    tasks.forEach(task => {
+      if (task.body === values.body.trim()) {
+        stopFunc = true;
+      }
+    });
+    if (stopFunc) {
+      return;
+    }
+
     const newTask = {
       id: Date.now(),
       body: values.body,
@@ -34,7 +48,8 @@ function TodoPage () {
   };
 
   const deleteTask = ({ id }) => {
-    setTasks(tasks.filter(task => task.id !== id));
+    const deletedElem = tasks.findIndex(task => task.id === id);
+    setTasks(tasks.splice(deletedElem, 1));
   };
 
   const checkTask = ({ id }) => {
@@ -48,34 +63,41 @@ function TodoPage () {
     setTasks(newTasks);
   };
 
+  useEffect(() => {
+    getCounter();
+  }, [tasks.length]);
+
+  const themeName = useContext(createContext(theme));
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.header}>ToDos... ({counter})</h1>
+    <div
+      className={
+        themeName === true ? styles.containerLight : styles.containerDark
+      }
+    >
+      <h1
+        className={themeName === true ? styles.headerLight : styles.headerDark}
+      >
+        ToDos... ({counter})
+      </h1>
+      <Button
+        onClick={changeTheme}
+        className={styles.themeButton}
+        variant={themeName === true ? 'outline-info' : 'outline-danger'}
+      >
+        Change Theme
+      </Button>
       <Formik
         initialValues={{ body: '' }}
         validationSchema={INPUT_SCHEMA}
         onSubmit={addTask}
       >
         {formikProps => {
-          console.log('formikProps :>> ', formikProps);
+          // console.log('formikProps :>> ', formikProps);
 
           return (
             <Form className={styles.inputData}>
-              <Input name='body' onClick={getCounter} />
-
-              {/* <Field className={styles.inputElement} name='body' />
-              <ErrorMessage
-                component='div'
-                name='body'
-                className={styles.errorValue}
-              />
-              <Button
-                variant='outline-secondary'
-                as='input'
-                type='submit'
-                onClick={getCounter}
-                value='Add Task'
-              /> */}
+              <Input name='body' themeName={themeName} />
             </Form>
           );
         }}
@@ -83,7 +105,12 @@ function TodoPage () {
       <ul className={styles.itemsContainer}>
         {tasks.map(task => (
           <>
-            <li key={task.id} className={styles.listItem}>
+            <li
+              key={task.id}
+              className={
+                themeName === true ? styles.listItemLight : styles.listItemDark
+              }
+            >
               <Formik initialValues={{ checkedTodo: false }}>
                 <Form>
                   <Field
@@ -96,7 +123,9 @@ function TodoPage () {
               <span>{task.body}</span>
               <div>
                 <Button
-                  variant='outline-dark'
+                  variant={
+                    themeName === true ? 'outline-success' : 'outline-light'
+                  }
                   className={styles.todoButton}
                   onClick={e => deleteTask(task)}
                 >

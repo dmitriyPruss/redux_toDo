@@ -7,7 +7,6 @@ import {
   Link,
   useRouteMatch,
 } from 'react-router-dom';
-
 import TodoPage from './pages/TodoPage';
 
 const App = () => <TodoPage />;

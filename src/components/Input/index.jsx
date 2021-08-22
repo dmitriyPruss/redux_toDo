@@ -1,12 +1,11 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
 import { Button } from 'react-bootstrap';
-
 import classNames from 'classnames';
 import styles from './../../pages/TodoPage/TodoPage.module.scss';
 
 const Input = props => {
-  const { name, getCounter, ...rest } = props;
+  const { name, themeName, ...rest } = props;
 
   return (
     <>
@@ -22,10 +21,9 @@ const Input = props => {
 
       <ErrorMessage name={name} component='p' className={styles.errorValue} />
       <Button
-        variant='outline-secondary'
+        variant={themeName === true ? 'outline-success' : 'outline-light'}
         as='input'
         type='submit'
-        onClick={getCounter}
         value='Add Task'
       />
     </>

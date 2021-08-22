@@ -17,5 +17,9 @@ export const LOGIN_SCHEMA = yup.object({
 });
 
 export const INPUT_SCHEMA = yup.object({
-  body: yup.string().required('field musn`t be empty!'),
+  body: yup
+    .string()
+    .min(2, 'Very few symbols!')
+    .max(15, 'Too much symbols!')
+    .required('field musn`t be empty!'),
 });

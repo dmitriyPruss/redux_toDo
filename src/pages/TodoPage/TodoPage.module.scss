@@ -6,29 +6,58 @@
   font-size: 16px;
 }
 
-.header {
-  font-size: 3rem;
-  text-align: center;
-  text-shadow: 0px 2px 0px #000000, 0px 6px 8px rgba(10, 8, 8, 0.548),
-    0px 9px 2px rgba(0, 0, 0, 0.1), 0px 12px 15px rgba(0, 0, 0, 0.1);
-  height: 4rem;
-  width: 35%;
-  margin: 10px;
+.themeButton {
+  position: fixed;
+  top: 3px;
+  left: 3px;
 }
 
-.container {
+.headerLight {
+  font-size: 3rem;
+  text-align: center;
+  color: rgb(248, 255, 253);
+  text-shadow: 0px 2px 0px #193333, 0px 6px 8px rgba(35, 75, 206, 0.548),
+    0px 9px 2px rgba(11, 37, 33, 0.1), 0px 12px 15px rgba(24, 127, 136, 0.432);
+  height: 4rem;
+  margin: 50px 0 10px;
+}
+
+.headerDark {
+  margin-top: 30px;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0px 2px 0px #ffffff, 0px 6px 8px rgba(233, 211, 211, 0.548),
+    0px 9px 2px rgba(216, 13, 13, 0.548), 0px 12px 15px rgba(0, 0, 0, 0.1);
+  height: 4rem;
+  margin: 50px 0 10px;
+}
+
+.containerLight {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgb(241, 241, 241);
+  background: rgb(222, 255, 251);
+  min-width: 320px;
+  position: relative;
+  height: 100vh;
+}
+
+.containerDark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(44, 44, 44);
+  min-width: 320px;
+  position: relative;
+  height: 100vh;
 }
 
 .itemsContainer {
   list-style: none;
   display: flex;
   flex-direction: column;
-  font-size: 1.7rem;
-  width: 64%;
+  font-size: 1.5rem;
+  width: 80%;
   margin: 0 auto;
   color: white;
 }
@@ -37,21 +66,59 @@
   display: flex;
   position: relative;
   margin-bottom: 30px;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
 }
 
 .inputElement {
   border-radius: 5px;
   margin-right: 5px;
-  height: 3rem;
+  height: 2.7rem;
 }
 
-.listItem {
+.listItemLight {
   margin: 10px 0 2px;
   padding: 3px;
-  border: 3px outset rgb(34, 30, 30);
+  border: 2px outset rgb(28, 122, 102);
   border-radius: 4px;
   width: 95%;
-  height: 70px;
+  height: 3.1rem;
+  position: relative;
+  background: linear-gradient(
+    rgb(160, 238, 221),
+    rgb(136, 207, 192),
+    rgb(110, 199, 180),
+    rgb(136, 207, 192),
+    rgb(160, 238, 221)
+  );
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > span {
+    margin-left: 30px;
+
+    background-color: rgb(8, 19, 16);
+
+    background-clip: text;
+    color: transparent;
+    text-shadow: rgba(90, 233, 199, 0.808) 0px 3px 3px;
+  }
+
+  & > div {
+    margin: 0 5px 0 auto;
+  }
+}
+
+.listItemDark {
+  margin: 10px 0 2px;
+  padding: 3px;
+  border: 2px double rgb(253, 253, 253);
+  border-radius: 4px;
+  width: 95%;
+  height: 3.1rem;
   position: relative;
   background: linear-gradient(
     rgb(163, 158, 156),
@@ -94,11 +161,11 @@
 }
 
 .valid {
-  border: 1px solid blue;
-  background: lightblue;
+  border: 1px solid rgb(45, 45, 56);
+  background: rgb(200, 207, 228);
 }
 
 .invalid {
-  border: 1px solid red;
-  background: rgb(255, 196, 196);
+  border: 1px solid maroon;
+  background: rgb(247, 219, 219);
 }
