@@ -5,11 +5,11 @@ import classNames from 'classnames';
 import styles from './../../pages/TodoPage/TodoPage.module.scss';
 
 const Input = props => {
-  const { name, themeName, ...rest } = props;
+  const { name, theme, ...rest } = props;
 
   return (
     <>
-      <Field name={name} placeholder='First Name'>
+      <Field name={name}>
         {({ field, form, meta }) => {
           const inputClassName = classNames(styles.inputElement, {
             [styles.valid]: !meta.error && meta.touched,
@@ -18,10 +18,9 @@ const Input = props => {
           return <input {...field} {...rest} className={inputClassName} />;
         }}
       </Field>
-
       <ErrorMessage name={name} component='p' className={styles.errorValue} />
       <Button
-        variant={themeName === true ? 'outline-success' : 'outline-light'}
+        variant={theme ? 'outline-success' : 'outline-light'}
         as='input'
         type='submit'
         value='Add Task'

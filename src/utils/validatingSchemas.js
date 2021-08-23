@@ -21,5 +21,5 @@ export const INPUT_SCHEMA = yup.object({
     .string()
     .min(2, 'Very few symbols!')
     .max(15, 'Too much symbols!')
-    .required('field musn`t be empty!'),
+    .required('Field musn`t be empty!'),
 });

@@ -1,3 +1,6 @@
+@import './../../common/styles/vars';
+@import './../../common/styles/templates';
+
 * {
   box-sizing: border-box;
 }
@@ -12,152 +15,114 @@
   left: 3px;
 }
 
-.headerLight {
-  font-size: 3rem;
-  text-align: center;
-  color: rgb(248, 255, 253);
-  text-shadow: 0px 2px 0px #193333, 0px 6px 8px rgba(35, 75, 206, 0.548),
-    0px 9px 2px rgba(11, 37, 33, 0.1), 0px 12px 15px rgba(24, 127, 136, 0.432);
-  height: 4rem;
-  margin: 50px 0 10px;
-}
-
-.headerDark {
-  margin-top: 30px;
-  font-size: 3rem;
-  text-align: center;
-  text-shadow: 0px 2px 0px #ffffff, 0px 6px 8px rgba(233, 211, 211, 0.548),
-    0px 9px 2px rgba(216, 13, 13, 0.548), 0px 12px 15px rgba(0, 0, 0, 0.1);
-  height: 4rem;
-  margin: 50px 0 10px;
+.containerLight,
+.containerDark {
+  @extend %containerSets;
 }
 
 .containerLight {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgb(222, 255, 251);
-  min-width: 320px;
-  position: relative;
-  height: 100vh;
+  background: rgb(190, 252, 244);
 }
 
 .containerDark {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgb(44, 44, 44);
-  min-width: 320px;
-  position: relative;
-  height: 100vh;
+  background: rgb(69, 70, 71);
+}
+
+.headerLight,
+.headerDark {
+  @extend %headerSets;
+}
+
+.headerLight {
+  color: rgb(253, 253, 253);
+  text-shadow: $lightTextShadow;
+}
+
+.headerDark {
+  text-shadow: $darkTextShadow;
 }
 
 .itemsContainer {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
-  width: 80%;
-  margin: 0 auto;
-  color: white;
-}
+  @extend %itemsContainerSets;
 
-.inputData {
-  display: flex;
-  position: relative;
-  margin-bottom: 30px;
-
+  @media screen and (max-width: 900px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 800px) {
+    width: 85%;
+  }
+  @media screen and (max-width: 700px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 600px) {
+    width: 95%;
+  }
   @media screen and (max-width: 500px) {
-    flex-direction: column;
+    width: 98%;
   }
 }
 
-.inputElement {
-  border-radius: 5px;
-  margin-right: 5px;
-  height: 2.7rem;
+.inputData {
+  margin-bottom: 30px;
+  position: relative;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+
+  .inputElement {
+    padding-left: 10px;
+    width: 80%;
+    border-radius: 5px;
+    margin-right: 5px;
+    height: 2.7rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    width: 90%;
+
+    .inputElement {
+      width: 100%;
+      margin: 0 0 30px;
+    }
+  }
 }
 
-.listItemLight {
-  margin: 10px 0 2px;
-  padding: 3px;
-  border: 2px outset rgb(28, 122, 102);
-  border-radius: 4px;
-  width: 95%;
-  height: 3.1rem;
-  position: relative;
-  background: linear-gradient(
-    rgb(160, 238, 221),
-    rgb(136, 207, 192),
-    rgb(110, 199, 180),
-    rgb(136, 207, 192),
-    rgb(160, 238, 221)
-  );
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+.listItemLight,
+.listItemDark {
+  @extend %listItemSets;
 
   & > span {
-    margin-left: 30px;
-
-    background-color: rgb(8, 19, 16);
-
-    background-clip: text;
-    color: transparent;
-    text-shadow: rgba(90, 233, 199, 0.808) 0px 3px 3px;
+    @extend %listItemTextSets;
   }
 
   & > div {
     margin: 0 5px 0 auto;
+  }
+}
+
+.listItemLight {
+  background: $lightBack;
+  border: 2px outset rgb(28, 122, 102);
+
+  & > span {
+    background-color: rgb(8, 19, 16);
+    text-shadow: rgba(90, 233, 199, 0.808) 0px 3px 3px;
   }
 }
 
 .listItemDark {
-  margin: 10px 0 2px;
-  padding: 3px;
+  background: $darkBack;
   border: 2px double rgb(253, 253, 253);
-  border-radius: 4px;
-  width: 95%;
-  height: 3.1rem;
-  position: relative;
-  background: linear-gradient(
-    rgb(163, 158, 156),
-    rgb(150, 148, 148),
-    rgb(147, 145, 145),
-    rgb(150, 148, 148),
-    rgb(163, 158, 138)
-  );
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 
   & > span {
-    margin-left: 30px;
-
     background-color: #161414;
-
-    background-clip: text;
-    color: transparent;
     text-shadow: rgba(141, 136, 136, 0.904) 0px 3px 3px;
   }
+}
 
-  & > div {
-    margin: 0 5px 0 auto;
-  }
-}
 .errorValue {
-  color: rgb(245, 51, 51);
-  font-weight: bold;
-  font-style: italic;
-  font-size: 0.85rem;
-  padding: 2px;
-  letter-spacing: 0.05rem;
-  position: absolute;
-  top: 45px;
-  left: 3px;
-}
-.todoButton {
-  height: 50%;
+  @extend %errorSets;
 }
 
 .valid {
