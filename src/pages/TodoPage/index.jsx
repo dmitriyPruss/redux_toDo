@@ -1,22 +1,19 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Input from '../../components/Input';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { ThemeContext } from './../../contexts';
 import { Button } from 'react-bootstrap';
 import { INPUT_SCHEMA } from './../../utils/validatingSchemas';
 import styles from './TodoPage.module.scss';
 
-function TodoPage () {
-  const [theme, setTheme] = useState(true);
+function TodoPage (props) {
+  const { changeTheme } = props;
   const [tasks, setTasks] = useState([]);
   const [counter, setCounter] = useState(tasks.length);
 
   const getCounter = () => {
     setCounter(tasks.length);
-  };
-
-  const changeTheme = () => {
-    setTheme(!theme);
   };
 
   const addTask = (values, formikBag) => {
@@ -61,6 +58,8 @@ function TodoPage () {
   useEffect(() => {
     getCounter();
   }, [tasks.length]);
+
+  const theme = useContext(ThemeContext);
 
   return (
     <div className={theme ? styles.containerLight : styles.containerDark}>
