@@ -1,0 +1,4 @@
+const ACTION_TYPES = {
+  GET_COUNTER: 'GET_COUNTER',
+  ADD_TASK: 'ADD _TASK',
+};
