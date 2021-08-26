@@ -5,55 +5,41 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { ThemeContext } from './../../contexts';
 import { Button } from 'react-bootstrap';
 import { INPUT_SCHEMA } from './../../utils/validatingSchemas';
+
+import { connect } from 'react-redux';
 import styles from './TodoPage.module.scss';
 
 function TodoPage (props) {
-  const { changeTheme } = props;
-  const [tasks, setTasks] = useState([]);
-  const [counter, setCounter] = useState(tasks.length);
+  // const { changeTheme } = props;
+  // const [tasks, setTasks] = useState([]);
 
+  const { changeTheme, tasks, addTask, deleteTask, checkTask } = props;
+  // console.log('props :>> ', props);
+  const [counter, setCounter] = useState(tasks.length);
   const getCounter = () => {
     setCounter(tasks.length);
   };
 
-  const addTask = (values, formikBag) => {
-    let stopFunc = null;
-    tasks.forEach(task => {
-      if (task.body === values.body.trim()) {
-        stopFunc = true;
-      }
-    });
-    if (stopFunc) {
-      return;
-    }
+  // const addTask = (values, formikBag) => {
+  //   let stopFunc = null;
+  //   tasks.forEach(task => {
+  //     if (task.body === values.body.trim()) {
+  //       stopFunc = true;
+  //     }
+  //   });
+  //   if (stopFunc) {
+  //     return;
+  //   }
 
-    const newTask = {
-      id: Date.now(),
-      body: values.body,
-      isDone: false,
-    };
-    setTasks([...tasks, newTask]);
+  //   const newTask = {
+  //     id: Date.now(),
+  //     body: values.body,
+  //     isDone: false,
+  //   };
+  //   setTasks([...tasks, newTask]);
 
-    formikBag.resetForm();
-  };
-
-  const deleteTask = ({ id }) => {
-    const deletedElem = tasks.findIndex(task => task.id === id);
-    const newTasks = [...tasks];
-    newTasks.splice(deletedElem, 1);
-    setTasks(newTasks);
-  };
-
-  const checkTask = ({ id }) => {
-    const newTasks = tasks.map(task => {
-      if (task.id === id) {
-        task.isDone = !task.isDone;
-      }
-      return task;
-    });
-
-    setTasks(newTasks);
-  };
+  //   formikBag.resetForm();
+  // };
 
   useEffect(() => {
     getCounter();
@@ -93,13 +79,18 @@ function TodoPage (props) {
             className={theme ? styles.listItemLight : styles.listItemDark}
           >
             <Formik initialValues={{ checkedTodo: task.isDone }}>
-              <Form>
-                <Field
-                  type='checkbox'
-                  name='checkedTodo'
-                  onClick={e => checkTask(task)}
-                />
-              </Form>
+              {formikProps => {
+                console.log('formikProps.values :>> ', formikProps.values);
+                return (
+                  <Form>
+                    <Field
+                      type='checkbox'
+                      name='checkedTodo'
+                      onClick={e => checkTask(task)}
+                    />
+                  </Form>
+                );
+              }}
             </Formik>
             <span>{task.body}</span>
             <div>
@@ -117,4 +108,13 @@ function TodoPage (props) {
   );
 }
 
-export default TodoPage;
+const mapStateToProps = state => state.tasks;
+const mapDispatchToProps = dispatch => {
+  return {
+    addTask: data => dispatch({ type: 'ADD_TASK', data }),
+    deleteTask: data => dispatch({ type: 'DELETE_TASK', data }),
+    checkTask: data => dispatch({ type: 'CHECK_TASK', data }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoPage);
