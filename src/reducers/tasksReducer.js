@@ -2,14 +2,11 @@ import ACTION_TYPES from '../actions/actionTypes';
 
 const initialState = {
   tasks: [],
-  // counter: 0,
 };
 
 const tasksReducer = (state = initialState, action) => {
   const { type } = action;
   switch (type) {
-    // case 'GET_COUNTER':
-    //   return { ...state, counter: state.counter + state.tasks.length };
     case ACTION_TYPES.ADD_TASK: {
       const { data } = action;
       const { tasks } = state;
@@ -51,8 +48,10 @@ const tasksReducer = (state = initialState, action) => {
     }
     case ACTION_TYPES.CHECK_TASK: {
       const { tasks } = state;
+      console.log(`action.changedInfo`, action.changedInfo);
+
       const {
-        data: { id, isDone },
+        changedInfo: { id, isDone },
       } = action;
 
       const newTasks = tasks.map(task => {
