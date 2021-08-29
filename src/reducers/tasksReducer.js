@@ -22,23 +22,19 @@ const tasksReducer = (state = initialState, action) => {
       }
 
       const newTask = {
+        ...data,
         id: Date.now(),
         isDone: false,
-        ...data,
       };
 
       const newTasks = [...tasks, newTask];
-
-      console.log(`tasks`, tasks);
 
       return { tasks: newTasks };
     }
 
     case ACTION_TYPES.DELETE_TASK: {
       const { tasks } = state;
-      const {
-        data: { id },
-      } = action;
+      const { data: id } = action;
 
       const newTasks = [...tasks];
       const deletedElem = newTasks.findIndex(newTask => newTask.id === id);
@@ -48,7 +44,6 @@ const tasksReducer = (state = initialState, action) => {
     }
     case ACTION_TYPES.CHECK_TASK: {
       const { tasks } = state;
-      console.log(`action.changedInfo`, action.changedInfo);
 
       const {
         changedInfo: { id, isDone },
@@ -56,7 +51,7 @@ const tasksReducer = (state = initialState, action) => {
 
       const newTasks = tasks.map(task => {
         if (task.id === id) {
-          task.isDone = !isDone;
+          task.isDone = isDone;
         }
 
         return task;

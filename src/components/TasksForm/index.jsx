@@ -1,21 +1,15 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import React, { useState, useEffect, useContext } from 'react';
+import { Formik, Form } from 'formik';
+import React from 'react';
 import Input from '../../components/Input';
-import { ThemeContext } from './../../contexts';
 import { Button } from 'react-bootstrap';
 import { INPUT_SCHEMA } from './../../utils/validatingSchemas';
 import ACTION_TYPES from '../../actions/actionTypes';
-import { addTask, deleteTask, checkTask } from './../../actions';
+import { addTask } from './../../actions';
 import { connect } from 'react-redux';
 import styles from './../../pages/TodoPage/TodoPage.module.scss';
 
 function TasksForm (props) {
-  const {
-    theme: { theme },
-    tasks: { tasks },
-    changeTheme,
-    addTaskAction,
-  } = props;
+  const { theme, changeTheme, addTaskAction } = props;
 
   const addTaskHandler = (values, formikBag) => {
     addTaskAction(values);
@@ -49,17 +43,11 @@ function TasksForm (props) {
   );
 }
 
-const mapStateToProps = state => state.tasks;
+const mapStateToProps = state => state.theme;
 const mapDispatchToProps = dispatch => {
   return {
     addTaskAction: data => {
       dispatch(addTask(data));
-    },
-    deleteTaskAction: data => {
-      dispatch(deleteTask(data));
-    },
-    checkTaskAction: data => {
-      dispatch(checkTask(data));
     },
     changeTheme: () => dispatch({ type: ACTION_TYPES.CHANGE_THEME }),
   };
