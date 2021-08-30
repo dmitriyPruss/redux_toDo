@@ -10,7 +10,6 @@ const themeReducer = (state = initialState, action) => {
     case ACTION_TYPES.CHANGE_THEME: {
       return { theme: !state.theme };
     }
-
     default:
       return state;
   }

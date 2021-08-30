@@ -31,10 +31,9 @@ const tasksReducer = (state = initialState, action) => {
 
       return { tasks: newTasks };
     }
-
     case ACTION_TYPES.DELETE_TASK: {
       const { tasks } = state;
-      const { data: id } = action;
+      const { id } = action;
 
       const newTasks = [...tasks];
       const deletedElem = newTasks.findIndex(newTask => newTask.id === id);
