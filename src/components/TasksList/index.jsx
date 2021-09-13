@@ -1,9 +1,7 @@
 import React from 'react';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { Button } from 'react-bootstrap';
 import { deleteTask, checkTask } from './../../actions';
 import { connect } from 'react-redux';
-import styles from './../../pages/TodoPage/TodoPage.module.scss';
+import TasksListItem from './TasksListItem';
 
 function TasksList (props) {
   const {
@@ -11,6 +9,7 @@ function TasksList (props) {
     tasks: { tasks },
     deleteTaskAction,
     checkTaskAction,
+    listClasses: { itemsContainer },
   } = props;
 
   const mapTask = ({ id, body, isDone }, index) => {
@@ -23,23 +22,18 @@ function TasksList (props) {
     };
 
     return (
-      <li
+      <TasksListItem
         key={id}
-        className={theme ? styles.listItemLight : styles.listItemDark}
-      >
-        <input type='checkbox' onClick={checkTaskHandler} />
-        <span>{body}</span>
-        <Button
-          variant={theme ? 'outline-success' : 'outline-light'}
-          onClick={deleteTaskHandler}
-        >
-          <DeleteOutlineIcon />
-        </Button>
-      </li>
+        body={body}
+        theme={theme}
+        checkTaskHandler={checkTaskHandler}
+        deleteTaskHandler={deleteTaskHandler}
+        listClasses={props.listClasses}
+      />
     );
   };
 
-  return <ul className={styles.itemsContainer}>{tasks.map(mapTask)}</ul>;
+  return <ul className={itemsContainer}>{tasks.map(mapTask)}</ul>;
 }
 
 const mapStateToProps = state => state;

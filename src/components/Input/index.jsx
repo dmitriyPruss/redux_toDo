@@ -1,11 +1,10 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
-import { Button } from 'react-bootstrap';
 import classNames from 'classnames';
-import styles from './../../pages/TodoPage/TodoPage.module.scss';
+import styles from './Input.module.scss';
 
 const Input = props => {
-  const { name, theme, ...rest } = props;
+  const { name, ...rest } = props;
 
   return (
     <>
@@ -19,12 +18,6 @@ const Input = props => {
         }}
       </Field>
       <ErrorMessage name={name} component='p' className={styles.errorValue} />
-      <Button
-        variant={theme ? 'outline-success' : 'outline-light'}
-        as='input'
-        type='submit'
-        value='Add Task'
-      />
     </>
   );
 };

@@ -1,0 +1,28 @@
+@import './../../common/styles/templates';
+
+.inputElement {
+  padding-left: 10px;
+  width: 80%;
+  border-radius: 5px;
+  margin-right: 5px;
+  height: 2.7rem;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    margin: 0 0 30px;
+  }
+}
+
+.errorValue {
+  @extend %errorSets;
+}
+
+.valid {
+  border: 1px solid rgb(45, 45, 56);
+  background: rgb(200, 207, 228);
+}
+
+.invalid {
+  border: 1px solid maroon;
+  background: rgb(247, 219, 219);
+}
